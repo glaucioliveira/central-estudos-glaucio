@@ -7,25 +7,27 @@ const W=[
 {d:'Sábado',s:'Revisão',t:'Conteúdo da semana',time:'4h',pdf:'Releitura somente dos pontos marcados como erro/dúvida.',pg:'Selecionadas pelo caderno de erros',topics:['Revisão ativa.','2–3 julgados relevantes por disciplina.','Questões erradas e pontos de baixa retenção.'],law:'Revisar artigos associados aos erros',search:'tema do erro', 'jsearch':['tema do erro da semana'], 'dsearch':['tema do erro da semana doutrina'],q:'20–30 questões'},
 {d:'Domingo',s:'Consolidação',t:'Simulado + caderno de erros',time:'4h',pdf:'Não iniciar novo PDF.',pg:'—',topics:['Simulado misto.','Correção ativa das alternativas.','Registrar erros.','Planejar Semana 02.'],law:'Artigos associados aos erros',search:'erros relevantes', 'jsearch':['tema do erro relevante'], 'dsearch':['tema do erro relevante doutrina'],q:'Simulado misto'}];
 
+const VERIFIED='23/08/2026';
+const FRESH={base:'BASE — conteúdo didático; não é atualização jurisprudencial', current:'ATUAL — fonte recente conferida', update:'ATUALIZAÇÃO — conferir antes de prova'};
 const VIDEOS={
 0:{
-  delta:{title:'Dimensões do princípio da legalidade',url:'https://www.youtube.com/watch?v=aZlawcM6rng',kind:'Vídeo público específico — Dedicação Delta'},
-  ceisc:{title:'Direito Penal | Aula gratuita | Delegado de Polícia',url:'https://www.youtube.com/watch?v=Glt-Cux1Rn8',kind:'Complementar — CEISC | Concursos'},
+  delta:{title:'Dimensões do princípio da legalidade',url:'https://www.youtube.com/watch?v=aZlawcM6rng',kind:'Vídeo público específico — Dedicação Delta',status:FRESH.base},
+  ceisc:{title:'Direito Penal | Aula gratuita | Delegado de Polícia',url:'https://www.youtube.com/watch?v=Glt-Cux1Rn8',kind:'Complementar — CEISC | Concursos',status:FRESH.base},
   note:'O vídeo Delta é diretamente relacionado ao princípio da legalidade, um dos núcleos da sessão. O CEISC é complementar e aborda Direito Penal para Delegado.'},
 1:{
-  delta:{title:'Princípio da insignificância — conteúdo oficial Delta',url:'https://dedicacaodelta.com.br/principio-da-insignificancia/',kind:'Aula pública oficial — Dedicação Delta'},
-  ceisc:{title:'Direito Penal | Aula gratuita | Delegado de Polícia',url:'https://www.youtube.com/watch?v=Glt-Cux1Rn8',kind:'Complementar — CEISC | Concursos'},
-  note:'Não foi encontrado, na busca pública validada, um vídeo individual do Delta cujo título permita afirmar que cobre todo o bloco da terça-feira. Por isso a Central não inventa um link: usa a página oficial Delta do tema e um vídeo CEISC de Direito Penal para Delegado como complemento.'},
+  delta:{title:'Princípio da insignificância — parte 2 (publicação oficial com acesso à aula)',url:'https://dedicacaodelta.com.br/principio-da-insignificancia-parte-2/',kind:'Publicação oficial Delta — contém acesso à aula',status:FRESH.base},
+  ceisc:{title:'Direito Penal | Aula gratuita | Delegado de Polícia',url:'https://www.youtube.com/watch?v=Glt-Cux1Rn8',kind:'Complementar — CEISC | Concursos',status:FRESH.base},
+  note:'A publicação oficial do Delta é diretamente sobre o princípio da insignificância e informa acesso à aula gratuita. Como não foi validado um URL individual do YouTube para esse vídeo, a Central usa a publicação oficial em vez de inventar um link.'},
 2:{
-  delta:{title:'Teoria Constitucional — buscar na plataforma Delta',url:'https://app.dedicacaodelta.com.br/login',kind:'Aula principal — plataforma do aluno'},
-  ceisc:{title:'Direito Constitucional | Aula gratuita | Delegado de Polícia',url:'https://www.youtube.com/watch?v=Bic7qENqEMw',kind:'Vídeo público específico — CEISC | Concursos'},
+  delta:{title:'Teoria Constitucional — buscar na plataforma Delta',url:'https://app.dedicacaodelta.com.br/login',kind:'Aula principal — plataforma do aluno',status:'PLATAFORMA — conteúdo protegido do aluno'},
+  ceisc:{title:'Direito Constitucional | Aula gratuita | Delegado de Polícia',url:'https://www.youtube.com/watch?v=Bic7qENqEMw',kind:'Vídeo público específico — CEISC | Concursos',status:FRESH.base},
   note:'O vídeo CEISC é uma aula pública específica de Direito Constitucional para Delegado. A aula Delta principal permanece dentro da plataforma do aluno.'},
 3:{
-  delta:{title:'Medicina Legal para Concursos de Delegado — Perícias e Peritos',url:'https://dedicacaodelta.com.br/medicina-legal-para-concursos-de-delegado-de-policia/',kind:'Conteúdo oficial Delta — curso específico'},
+  delta:{title:'Medicina Legal para Concursos de Delegado — Perícias e Peritos',url:'https://dedicacaodelta.com.br/medicina-legal-para-concursos-de-delegado-de-policia/',kind:'Conteúdo oficial Delta — curso específico',status:FRESH.base},
   ceisc:null,
   note:'A busca pública não confirmou um vídeo individual do CEISC/Delta no YouTube para este subtema. A Central não direciona para canal genérico; mantém a referência oficial Delta específica para Medicina Legal.'},
 4:{
-  delta:{title:'Direito Civil / LINDB — buscar na plataforma Delta',url:'https://app.dedicacaodelta.com.br/login',kind:'Aula principal — plataforma do aluno'},
+  delta:{title:'Direito Civil / LINDB — buscar na plataforma Delta',url:'https://app.dedicacaodelta.com.br/login',kind:'Aula principal — plataforma do aluno',status:'PLATAFORMA — conteúdo protegido do aluno'},
   ceisc:null,
   note:'A busca pública não confirmou um vídeo individual gratuito do CEISC/Delta especificamente sobre LINDB e Pessoas. A Central não usa link genérico de canal.'},
 5:{
@@ -35,39 +37,49 @@ const VIDEOS={
   delta:null,ceisc:null,
   note:'Consolidação: não iniciar vídeos novos; usar apenas vídeos para sanar lacunas identificadas no simulado.'}
 };
-function dLink(q){return 'https://buscadordizerodireito.com.br/jurisprudencia/listar/11?palavra-chave='+encodeURIComponent(q)}
-function gLink(q){return 'https://www.google.com/search?q='+encodeURIComponent(q+' doutrina direito')+'+site%3Aconjur.com.br+OR+site%3Amigalhas.com.br+OR+site%3Ajusbrasil.com.br'}
-function ytSearch(q){return 'https://www.youtube.com/results?search_query='+encodeURIComponent(q)}
+function dLink(q){return 'https://buscadordizerodireito.com.br/jurisprudencia/listar/11?palavra-chave='+encodeURIComponent('\"'+q+'\"')}
+function gLink(q){return 'https://scholar.google.com/scholar?q='+encodeURIComponent('\"'+q.replace(' doutrina','')+'\"')}
+function ytSearch(q){return 'https://www.youtube.com/results?search_query='+encodeURIComponent('\"'+q+'\" Delegado Polícia')}
+const LAW={
+0:{title:'Código Penal — arts. 1º–12',url:'https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm'},
+1:{title:'Código Penal — arts. 1º–12',url:'https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm'},
+2:{title:'Constituição Federal — arts. 1º–4º',url:'https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm'},
+3:{title:'CPP — arts. 158–184',url:'https://www.planalto.gov.br/ccivil_03/decreto-lei/del3689compilado.htm'},
+4:{title:'LINDB + Código Civil — arts. 1º–78',url:'https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm', lindb:'https://www.planalto.gov.br/ccivil_03/decreto-lei/del4657compilado.htm'},
+5:{title:'Revisar dispositivos associados aos erros',url:'https://www.planalto.gov.br/'},
+6:{title:'Revisar dispositivos associados aos erros',url:'https://www.planalto.gov.br/'}
+}
 let st=JSON.parse(localStorage.getItem('pcsp')||'{}');
 function chk(id,txt){return `<label class="check"><input type="checkbox" data-x="${id}" ${st[id]?'checked':''}> ${txt}</label>`}function bind(){document.querySelectorAll('[data-x]').forEach(e=>e.onchange=()=>{st[e.dataset.x]=e.checked;localStorage.setItem('pcsp',JSON.stringify(st));show('home')})}function wrap(x){return `<div class="container">${x}<p class="foot">Regra: não é necessário zerar o PDF. Leia apenas as páginas/tópicos indicados dentro do tempo previsto.</p></div>`}
-function home(){return wrap(`<div class="hero"><span class="tag">SEMANA 01</span><h2>Estudo executável</h2><p class="muted">Cada sessão informa vídeo, PDF Delta, páginas internas, lei seca, pesquisa jurisprudencial, questões e revisão.</p></div><div class="grid">${W.slice(0,6).map((x,i)=>`<div class="card day" onclick="day(${i})"><span class="tag">${x.d}</span><span class="tag">${x.time}</span><h3>${x.s}</h3><p>${x.t}</p><small>PDF: ${x.pg}</small></div>`).join('')}</div>`) }
+function home(){return wrap(`<div class="hero"><span class="tag">SEMANA 01</span><h2>Estudo executável</h2><p class="muted">Cada sessão informa vídeo, PDF Delta, páginas internas, lei seca, pesquisa jurisprudencial, doutrina, questões e revisão.</p><div class="notice"><strong>Controle de atualização:</strong> vídeo pode ser BASE mesmo sendo antigo; jurisprudência e legislação devem ser conferidas nas fontes oficiais mais recentes. Verificação externa desta versão: ${VERIFIED}.<br><br><strong>Regra de curadoria:</strong> não usamos links genéricos de canais. Vídeo individual só entra quando foi validado; caso contrário, a Central identifica a lacuna e oferece, no máximo, uma pesquisa temática exata.</div></div><div class="grid">${W.slice(0,6).map((x,i)=>`<div class="card day" onclick="day(${i})"><span class="tag">${x.d}</span><span class="tag">${x.time}</span><h3>${x.s}</h3><p>${x.t}</p><small>PDF: ${x.pg}</small></div>`).join('')}</div>`) }
 function day(i){
 let x=W[i],v=VIDEOS[i]||{};
 document.getElementById('content').innerHTML=wrap(`
 <button class="btn alt" onclick="show('week')">← Semana 01</button>
 <div class="hero"><span class="tag">${x.d}</span><h2>${x.s}</h2><p class="muted">${x.t} · ${x.time}</p></div>
-<div class="card"><h3>1. Vídeos de estudo</h3>
+<div class="card"><h3>1. Vídeos de estudo — curadoria</h3>
 <p><strong>Aula principal:</strong> Dedicação Delta — ${i===0?'vídeo público específico abaixo como complemento.':i===2?'aula principal dentro da plataforma do aluno.':'conteúdo correspondente na plataforma.'}</p>
-${v.delta?`<div class="source"><strong>${v.delta.kind}</strong><br>${v.delta.title}</div><a class="btn" target="_blank" href="${v.delta.url}">▶ Abrir vídeo/conteúdo Delta</a>`:''}
-${v.ceisc?`<div class="source"><strong>${v.ceisc.kind}</strong><br>${v.ceisc.title}</div><a class="btn alt" target="_blank" href="${v.ceisc.url}">▶ Abrir vídeo CEISC</a>`:''}
-${(i===0||i===1||i===3||i===4)?`<div class="source"><strong>Busca complementar no YouTube</strong><br>Tema: ${x.t}. Use somente se não houver vídeo específico acima.</div><a class="btn alt" target="_blank" href="${ytSearch(x.t+' delegado de polícia')}">Pesquisar vídeos do tema</a>`:''}
+${v.delta?`<div class="source"><strong>${v.delta.kind}</strong><br>${v.delta.title}<br><span class="tag">${v.delta.status||FRESH.base}</span></div><a class="btn" target="_blank" rel="noopener" href="${v.delta.url}">▶ Abrir vídeo/conteúdo Delta</a>`:''}
+${v.ceisc?`<div class="source"><strong>${v.ceisc.kind}</strong><br>${v.ceisc.title}<br><span class="tag">${v.ceisc.status||FRESH.base}</span></div><a class="btn alt" target="_blank" rel="noopener" href="${v.ceisc.url}">▶ Abrir vídeo CEISC</a>`:''}
+${(i===0||i===1||i===2||i===3||i===4)?`<div class="source"><strong>Pesquisa audiovisual temática</strong><br>Quando não houver vídeo individual público validado, a Central não aponta para o canal. O botão abaixo pesquisa o <em>tema exato</em> no YouTube para permitir localizar uma aula compatível.</div><a class="btn alt" target="_blank" href="${ytSearch(x.t)}">Pesquisar exatamente: ${x.t}</a>`:''}
 <p class="muted small">${v.note||'Priorize a aula Delta e use vídeos externos somente para esclarecer lacunas.'}</p>
 ${chk(i+'v','Vídeo/conteúdo audiovisual da sessão concluído')}</div>
 <div class="card"><h3>2. PDF Delta — leitura obrigatória</h3><div class="source"><strong>Arquivo:</strong> ${x.pdf}<br><strong>Páginas internas:</strong> ${x.pg}</div><ul>${x.topics.map(z=>`<li>${z}</li>`).join('')}</ul>${chk(i+'p','Leitura orientada concluída')}</div>
-<div class="card"><h3>3. Lei seca</h3><p>${x.law}</p><a class="btn" target="_blank" href="https://www.planalto.gov.br/">Abrir Planalto</a>${chk(i+'l','Lei seca revisada')}</div>
+<div class="card"><h3>3. Lei seca — fonte oficial</h3><p>${x.law}</p><a class="btn" target="_blank" href="${LAW[i].url}">⚖ Abrir ${LAW[i].title}</a>${i===4?`<a class="btn alt" target="_blank" href="${LAW[i].lindb}">⚖ Abrir LINDB — texto oficial</a>`:''}${chk(i+'l','Lei seca revisada')}</div>
 <div class="card"><h3>4. Jurisprudência — pesquisa obrigatória</h3>
 <p><strong>Subtemas selecionados:</strong> ${x.jsearch.map(q=>`<span class="tag">${q}</span>`).join('')}</p>
-<p class="muted">Cada botão abre uma pesquisa do Buscador por palavra-chave já preenchida. Quando houver classificação temática específica do Dizer o Direito, ela será preferida nas versões seguintes.</p>
+<p class="muted">Cada botão abre uma busca por <strong>frase exata</strong>. A pesquisa deve ser refinada por recência/novo entendimento quando esses filtros estiverem disponíveis. Se a busca retornar muitos resultados, priorize os julgados de maior aderência ao tópico da aula.</p>
 <div>${x.jsearch.map(q=>`<a class="btn" target="_blank" href="${dLink(q)}">🔎 ${q}</a>`).join('')}</div>
 ${chk(i+'j','Pesquisa jurisprudencial concluída')}</div>
 <div class="card"><h3>5. Doutrina — pesquisa direcionada</h3>
-<p class="muted">A pesquisa doutrinária é separada da jurisprudência. Os termos abaixo são específicos da sessão e não levam a uma página genérica.</p>
+<p class="muted">A pesquisa doutrinária é separada da jurisprudência. Os botões usam o Google Scholar com a expressão exata do subtema. A Central não trata o resultado como doutrina oficial: use-o para localizar artigos, livros e trabalhos acadêmicos pertinentes.</p>
 <div>${x.dsearch.map(q=>`<a class="btn alt" target="_blank" href="${gLink(q)}">📚 ${q}</a>`).join('')}</div>
 ${chk(i+'d','Pesquisa doutrinária concluída')}</div>
-<div class="card"><h3>6. Questões</h3><p>${x.q}. Corrigir ativamente e registrar erros.</p>${chk(i+'q','Questões concluídas e erros registrados')}</div>
-<div class="card"><h3>7. Revisão</h3><p>Revisão ativa em 48/72h e depois conforme o calendário de revisão.</p></div>`);
+<div class="card"><h3>6. Atualidade e conferência</h3><p><strong>Verificação externa:</strong> ${VERIFIED}. Conteúdo-base de vídeo não é tratado como atualização. Para jurisprudência recente, confira também os informativos oficiais do STJ.</p><a class="btn alt" target="_blank" rel="noopener" href="https://scon.stj.jus.br/jurisprudencia/externo/informativo/">⚖ Informativos oficiais do STJ</a><p class="muted small">Regra: se houver mudança legislativa ou jurisprudencial posterior ao PDF/aula, a atualização oficial prevalece e deve ser registrada no caderno de erros.</p></div>
+<div class="card"><h3>7. Questões</h3><p>${x.q}. Corrigir ativamente e registrar erros.</p>${chk(i+'q','Questões concluídas e erros registrados')}</div>
+<div class="card"><h3>8. Revisão</h3><p>Revisão ativa em 48/72h e depois conforme o calendário de revisão.</p></div>`);
 bind();scrollTo(0,0)}
-function week(){return wrap(`<div class="hero"><h2>Semana 01 / 48</h2><p class="muted">Semana 01 validada como modelo estrutural das 48 semanas. As semanas seguintes serão alimentadas quando os materiais forem disponibilizados.</p><div class="notice">Padrão fixo: Vídeo Delta → vídeo complementar (Delta/CEISC) → PDF com páginas → lei seca → jurisprudência → questões → revisão. Não iniciar a próxima semana até que o conteúdo correspondente seja conferido.</div></div><table class="table"><tr><th>Dia</th><th>Disciplina</th><th>Tema</th><th>Tempo</th><th>Páginas</th></tr>${W.map((x,i)=>`<tr><td><button class="btn alt" onclick="day(${i})">${x.d}</button></td><td>${x.s}</td><td>${x.t}</td><td>${x.time}</td><td>${x.pg}</td></tr>`).join('')}</table>`) }
-function juris(){return wrap(`<div class="hero"><h2>Jurisprudência</h2><p class="muted">Fonte preferencial: Buscador Dizer o Direito. A Central orienta o que pesquisar; o registro da tese deve ser feito pelo aluno.</p></div><div class="grid"><div class="card"><h3>Pesquisa geral</h3><a class="btn" target="_blank" href="${D}">Abrir Buscador</a></div><div class="card"><h3>Constitucional</h3><a class="btn" target="_blank" href="https://buscadordizerodireito.com.br/marcadores/listar/353?categoria=1">Pesquisar</a></div><div class="card"><h3>Civil</h3><a class="btn" target="_blank" href="https://buscadordizerodireito.com.br/jurisprudencia/listar/?categoria=4&palavra-chave=fato%20jur%C3%ADdico">Pesquisar</a></div><div class="card"><h3>Processo Penal / Provas</h3><a class="btn" target="_blank" href="https://buscadordizerodireito.com.br/jurisprudencia/listar?categoria=12&subcategoria=128">Pesquisar</a></div></div>`) }
-function resources(){return wrap(`<div class="hero"><h2>Recursos</h2><p>Legislação oficial e pesquisa jurisprudencial.</p><a class="btn" target="_blank" href="https://www.planalto.gov.br/">Planalto</a><a class="btn" target="_blank" href="https://buscadordizerodireito.com.br/">Dizer o Direito</a></div><div class="notice">Os PDFs Delta não são reproduzidos pela Central. Ela registra apenas nome do arquivo, páginas e tópicos, para que você consulte o material que já possui.</div>`) }
+function week(){return wrap(`<div class="hero"><h2>Semana 01 / 48</h2><p class="muted">Semana 01 validada como modelo estrutural das 48 semanas. As semanas seguintes serão alimentadas quando os materiais forem disponibilizados.</p><div class="notice">Padrão fixo: Vídeo Delta → vídeo complementar validado (Delta/CEISC) → PDF com páginas → lei seca específica → jurisprudência por subtema → doutrina por subtema → questões → revisão. Não iniciar a próxima semana até que o conteúdo correspondente seja conferido.</div></div><table class="table"><tr><th>Dia</th><th>Disciplina</th><th>Tema</th><th>Tempo</th><th>Páginas</th></tr>${W.map((x,i)=>`<tr><td><button class="btn alt" onclick="day(${i})">${x.d}</button></td><td>${x.s}</td><td>${x.t}</td><td>${x.time}</td><td>${x.pg}</td></tr>`).join('')}</table>`) }
+function juris(){return wrap(`<div class="hero"><h2>Jurisprudência</h2><p class="muted">Fonte de curadoria: Buscador Dizer o Direito. Para atualização, confronte com os informativos oficiais do STF/STJ. A Central orienta o que pesquisar; o registro da tese deve ser feito pelo aluno.</p><a class="btn alt" target="_blank" rel="noopener" href="https://scon.stj.jus.br/jurisprudencia/externo/informativo/">⚖ STJ — Informativos mais recentes</a></div><div class="grid"><div class="card"><h3>Pesquisa geral</h3><a class="btn" target="_blank" href="https://buscadordizerodireito.com.br/jurisprudencia">Abrir Buscador</a></div><div class="card"><h3>Constitucional</h3><a class="btn" target="_blank" href="https://buscadordizerodireito.com.br/marcadores/listar/353?categoria=1">Pesquisar</a></div><div class="card"><h3>Civil</h3><a class="btn" target="_blank" href="https://buscadordizerodireito.com.br/jurisprudencia/listar/?categoria=4&palavra-chave=fato%20jur%C3%ADdico">Pesquisar</a></div><div class="card"><h3>Processo Penal / Provas</h3><a class="btn" target="_blank" href="https://buscadordizerodireito.com.br/jurisprudencia/listar?categoria=12&subcategoria=128">Pesquisar</a></div></div><div class="notice"><strong>Regra:</strong> para as sessões da Semana 01, prefira os botões de subtema dentro de cada dia. Eles abrem pesquisas por expressão exata.</div>`) }
+function resources(){return wrap(`<div class="hero"><h2>Recursos</h2><p>Legislação oficial e pesquisa jurisprudencial.</p><a class="btn" target="_blank" href="https://www.planalto.gov.br/">Planalto</a><a class="btn" target="_blank" href="https://buscadordizerodireito.com.br/jurisprudencia/listar/11?palavra-chave=%22legalidade%20penal%22">Exemplo: jurisprudência por frase exata</a><a class="btn" target="_blank" href="https://scholar.google.com/">Google Scholar — doutrina</a></div><div class="notice">Os PDFs Delta não são reproduzidos pela Central. Ela registra apenas nome do arquivo, páginas e tópicos, para que você consulte o material que já possui.</div>`) }
 function perf(){let n=Object.values(st).filter(Boolean).length;return wrap(`<div class="hero"><h2>Desempenho</h2><div style="font-size:30px;font-weight:800">${n} tarefas</div><p class="muted">Progresso salvo neste navegador.</p></div>`)}function show(v){document.getElementById('content').innerHTML=v==='week'?week():v==='juris'?juris():v==='resources'?resources():v==='perf'?perf():home();bind()}show('home');
