@@ -1,9 +1,15 @@
-# Central de Estudos — Delegado PC-SP | Projeto Gláucio
+# Central de Estudos — Delegado PC-SP | V2.1
 
-V1 independente e estática. Abra `index.html` no navegador ou publique a pasta em um serviço de hospedagem de sites estáticos.
+Versão independente para GitHub Pages. A Semana 01 é o modelo estrutural das 48 semanas.
 
-O progresso usa `localStorage`, portanto não exige banco ou API paga. A aplicação está preparada para receber posteriormente sincronização com Supabase/GitHub.
+## Fluxo
+Vídeo Dedicação Delta → vídeo complementar (Delta/CEISC) → PDF orientado por páginas → Lei seca → Jurisprudência → Questões → Revisão.
 
-A Semana 01 segue a matriz `Metas da Semana.pdf` fornecida pelo usuário: Penal I, Penal II, Constitucional, Medicina Legal, Civil e revisão no sábado.
+## Vídeos
+A Central prioriza o curso Delta. Para conteúdo público, usa pesquisas direcionadas no canal do Dedicação Delta e no canal oficial Ceisc | Concursos, evitando inventar links individuais quando o vídeo específico não pôde ser confirmado.
 
-Os PDFs do Dedicação Delta não são copiados nem hospedados. A aplicação usa referências, objetivos e resumos originais. Links de legislação apontam para fontes oficiais; vídeos são recursos públicos externos.
+## Publicação
+Envie/substitua index.html, app.js e styles.css no repositório e mantenha GitHub Pages na branch principal / raiz.
+
+## V2.2 — pesquisa direcionada
+Os botões de jurisprudência usam consultas por palavra-chave no Buscador Dizer o Direito. Os botões de doutrina abrem buscas já preenchidas pelo tema. A Central não reproduz conteúdo protegido.
